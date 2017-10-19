@@ -19,6 +19,8 @@ func main() {
 		"androidpad-jaysinco": "Zhou Xinke",
 		"AriannadeiPhone":     "Dong Shen",
 		"Wenqide-iPhone":      "Gou Wenqi",
+		"taiyuede-iPad":       "Zhong Qijia",
+		"iPhone":              "Zhong Qijia",
 	}
 	peers := make(map[string]bool)
 	logged := make(map[string]bool)
