@@ -17,6 +17,7 @@ func main() {
 		"lenovopc-jaysinco":   "Zhou Xinke",
 		"Honor_8":             "Zhou Xinke",
 		"androidpad-jaysinco": "Zhou Xinke",
+		"libinde-iPad":        "Dong Shen",
 		"AriannadeiPhone":     "Dong Shen",
 		"Wenqide-iPhone":      "Gou Wenqi",
 		"taiyuede-iPad":       "Zhong Qijia",
@@ -43,7 +44,7 @@ func main() {
 			}
 		}
 		fmt.Print("\r")
-		for pr, _ := range peers {
+		for pr := range peers {
 			fmt.Printf("%s; ", pr)
 		}
 		time.Sleep(1 * time.Second)
