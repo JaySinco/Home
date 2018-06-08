@@ -13,7 +13,7 @@ func main() {
 	}
 	switch os.Args[1] {
 	case "md5":
-		fmt.Printf("%x\ns", md5.Sum([]byte(os.Args[2])))
+		fmt.Printf("%x\n", md5.Sum([]byte(os.Args[2])))
 	default:
 		fmt.Printf("unsupport hash method: '%s'\n", os.Args[1])
 		return
