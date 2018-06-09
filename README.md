@@ -1,3 +1,3 @@
 ## Document
-**wath** - A simple tool used to detect who at home by tracking wifi connection.  
-**crypto** - Command line hash function.
+**wat** - A simple tool used to detect who at home by tracking wifi connection.  
+**md5** - A command line md5 calculator.
