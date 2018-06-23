@@ -20,6 +20,7 @@ func main() {
 	set := make([]string, 0)
 	total := 0
 	sep := "::"
+	sepp := "/"
 	opencc := newOpencConv("./opencc/config/t2s.json")
 	defer opencc.close()
 
@@ -55,9 +56,7 @@ ReadLoop:
 			poem.WriteString(sep)
 			poem.WriteString(p.Author)
 			poem.WriteString(sep)
-			for _, n := range p.Paragraphs {
-				poem.WriteString(n)
-			}
+			poem.WriteString(strings.Join(p.Paragraphs, sepp))
 			cc := poem.String()
 			if strings.ContainsAny(cc, "（）《》□[]") {
 				continue
