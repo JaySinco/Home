@@ -11,9 +11,10 @@ import (
 )
 
 //go:generate goyacc -o eval.go eval.y
+
 const prompt = ">>> "
 
-var symbolTable = make([]*symEntry, 0, 10)
+var symbolTable = make([]*symEntry, 0)
 
 type symEntry struct {
 	id  string
@@ -24,9 +25,7 @@ type symEntry struct {
 func main() {
 	lex := &lexer{sc: new(scanner.Scanner)}
 	lex.Init(os.Stdin)
-	addFunc("test", func(n ...*big.Float) (*big.Float, error) {
-		return n[0], fmt.Errorf("not a number")
-	})
+	addFunc("sum", sum)
 	yyParse(lex)
 }
 
@@ -91,10 +90,6 @@ func wrap2(x *big.Float, y *big.Float, act func(z, x, y *big.Float) *big.Float) 
 	return act(temp, x, y)
 }
 
-func addFunc(id string, fn func(n ...*big.Float) (*big.Float, error)) {
-	symbolTable = append(symbolTable, &symEntry{id: id, fn: fn})
-}
-
 func format(x *big.Float) string {
 	const maxp = 8
 	for acc := 0; acc < maxp; acc++ {
@@ -112,4 +107,16 @@ func nstr(n int, s string) string {
 		buf.WriteString(s)
 	}
 	return buf.String()
+}
+
+func addFunc(id string, fn func(n ...*big.Float) (*big.Float, error)) {
+	symbolTable = append(symbolTable, &symEntry{id: id, fn: fn})
+}
+
+func sum(ns ...*big.Float) (*big.Float, error) {
+	total := new(big.Float)
+	for _, n := range ns {
+		total.Add(total, n)
+	}
+	return total, nil
 }

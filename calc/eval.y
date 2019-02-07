@@ -17,7 +17,8 @@ import (
 %token<sym> IDENTIFIER
 
 %type<arg>  argument_expression_list
-%type<num>  primary_expression multiplicative_expression additive_expression expression unary_expression postfix_expression
+%type<num>  primary_expression multiplicative_expression additive_expression expression 
+            unary_expression postfix_expression
 
 %start statement_list
 
@@ -49,7 +50,7 @@ postfix_expression
 
 unary_expression
     : postfix_expression
-    | '-' postfix_expression  {$$ = wrap1($2, (*big.Float).Neg)}
+    | '-' postfix_expression                             {$$ = wrap1($2, (*big.Float).Neg)}
     ;
 
 multiplicative_expression
@@ -69,17 +70,18 @@ expression
 	;
 
 argument_expression_list
-	: expression  {$$ = make([]*big.Float, 0); $$ = append($$, $1)}
-	| argument_expression_list ',' expression {$1 = append($1, $3); $$ = $1}
+	: expression                               {$$ = make([]*big.Float, 0); $$ = append($$, $1)}
+	| argument_expression_list ',' expression  {$1 = append($1, $3); $$ = $1}
+    | /* no function parameters */             {$$ = nil}
 	;
 
 expression_statement
 	: ';'
-	| expression ';'  {fmt.Printf("%s\n", format($1))}
+	| expression ';'                           {fmt.Printf("%s\n", format($1))}
 	;
 
 assignment_statement
-    : IDENTIFIER '=' expression ';'  {$1.num = $3}
+    : IDENTIFIER '=' expression ';'            {$1.num = $3}
 
 statement
 	: expression_statement
@@ -92,4 +94,3 @@ statement_list
 	;
 
 %%
-
